@@ -40,7 +40,7 @@ Arguments:
 Annotated Images: Images with cells and red dots marked, saved in the output directory.
 CSV File: A counts.csv file containing the filename, mean number of red dots per cell, and the count of red dots for each cell.
 
-### 2. calculate_red_intensity.py
+### 2. `calculate_red_intensity.py`
 
 #### Purpose
 The calculate_red_intensity.py script calculates the mean red intensity within each cell in an image. This script processes individual .tif images or directories containing multiple .tif files and outputs the results in a CSV file.
