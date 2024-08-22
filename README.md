@@ -28,13 +28,13 @@ python count_red_dots.py -i <input_path> [-o <output_dir>] [options]
 
 Arguments:
 
-- -i: Path to the directory containing .tif files or an individual .tif file.
-- -o: Path to the directory where the output files (CSV and annotated images) will be saved.
-- -red_bg_threshold: Adjustment for red background noise.
-- -blue_bg_threshold: Adjustment for blue background noise.
-- -min_cell_size: Minimum size of a cell to be counted.
-- -red_max_size: Maximum size of a red dot to be considered.
-- -blue_hole_threshold: Maximum size of a hole in a cell area to be filled.
+- -i (required): Path to the directory containing .tif images or the path to a single .tif file.
+- -o (optional): Path to the directory where the results (CSV file and annotated images) will be saved.
+- -red_bg_threshold (optional): Adjustment for red background noise (default: 0.75).
+- -blue_bg_threshold (optional): Adjustment for blue background noise (default: 2).
+- -min_cell_size (optional): Minimum size (in pixels) for a cell to be counted (default: 1450).
+- -red_max_size (optional): Maximum size (in pixels) for a red dot to be considered valid (default: 20).
+- -blue_hole_threshold (optional): Maximum size (in pixels) of a hole to be filled in cell areas (default: 64).
 
 #### Output
 Annotated Images: Images with cells and red dots marked, saved in the output directory.
@@ -62,13 +62,10 @@ python calculate_red_intensity.py -i <input_path> [-o <output_dir>] [options]
 
 Arguments:
 
-- -i: Path to the directory containing .tif files or an individual .tif file.
-- -o: Path to the directory where the output files (CSV and annotated images) will be saved.
-- -red_bg_threshold: Adjustment for red background noise.
-- -blue_bg_threshold: Adjustment for blue background noise.
-- -min_cell_size: Minimum size of a cell to be counted.
-- -red_max_size: Maximum size of a red dot to be considered.
-- -blue_hole_threshold: Maximum size of a hole in a cell area to be filled.
+- -i (required): Path to the directory containing .tif images or the path to a single .tif file.
+- -o (optional): Path to the directory where the results (CSV file and annotated images) will be saved.
+- -blue_hole_threshold (optional): Maximum size (in pixels) of a hole to be filled in cell areas (default: 64).
+- -min_cell_size (optional): Minimum size (in pixels) for a cell to be considered valid (default: 1450).
 
 #### Output
 Annotated Images: Images with the regions used for intensity calculations marked, saved in the output directory.
