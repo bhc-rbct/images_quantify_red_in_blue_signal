@@ -19,21 +19,20 @@ warnings.filterwarnings(
 
 
 def get_filtered_cell_props(
-    image: ndarray, blue_hole_threshold: int, gaussian_sigma: float, min_size: int
+    image: np.ndarray, blue_hole_threshold: int, min_size: int
 ) -> tuple:
     """
     Filter and retrieve cell properties based on the blue channel of the image.
 
     Args:
-        image (ndarray): The input image containing cells.
+        image (np.ndarray): The input image containing cells.
         blue_hole_threshold (int): The maximum size of a hole to be filled.
-        gaussian_sigma (float): Sigma value for Gaussian smoothing to reduce noise.
         min_size (int): Minimal size for a cell to be used.
 
     Returns:
         tuple: A tuple containing:
             - filtered_cell_props (list): A list of filtered cell properties.
-            - filtered_cell_labels (ndarray): The labeled image after filtering out border cells.
+            - filtered_cell_labels (np.ndarray): The labeled image after filtering out border cells.
     """
     blue_channel = image[:, :, 2]
     # Optionally, smooth the image to reduce noise
@@ -45,7 +44,7 @@ def get_filtered_cell_props(
 
     # Remove small holes in the thresholded image
     cells_image_blue = morphology.remove_small_holes(
-        thresholded_image, connectivity=1, area_threshold=blue_area_threshold
+        thresholded_image, connectivity=1, area_threshold=blue_hole_threshold
     )
     cells_image_blue = morphology.remove_small_objects(cells_image_blue)
 
@@ -57,6 +56,7 @@ def get_filtered_cell_props(
 
     # Initialize a mask to remove edge cells
     mask = np.ones(cell_labels.shape, dtype=bool)
+
     filtered_cell_props = []
 
     for prop in cell_props:
@@ -76,19 +76,22 @@ def get_filtered_cell_props(
 
     # Apply the mask to remove edge cells from the labeled image
     filtered_cell_labels = cell_labels * mask
+
+   
+
     return filtered_cell_props, filtered_cell_labels
 
 
 def get_plot_red_intensity_per_cell(
-    filtered_cell_props: list, filtered_cell_labels: ndarray, original_image: ndarray, plot_path: str
+    filtered_cell_props: list, filtered_cell_labels: np.ndarray, original_image: np.ndarray, plot_path: str
 ) -> str:
     """
     Calculate and plot the mean red intensity within each cell region.
 
     Args:
         filtered_cell_props (list): Properties of the filtered cells.
-        filtered_cell_labels (ndarray): Labeled image of the filtered cells.
-        original_image (ndarray): The original input image.
+        filtered_cell_labels (np.ndarray): Labeled image of the filtered cells.
+        original_image (np.ndarray): The original input image.
         plot_path (str): Path to save the plot.
 
     Returns:
@@ -274,9 +277,9 @@ if __name__ == "__main__":
     parser.add_argument(
         "-min_cell_size",
         dest="min_cell_size",
-        default=1450,
+        default=150,
         type=int,
-        help="Minimal number of pixels a cell has to have to be counted (default: 1450)",
+        help="Minimal number of pixels a cell has to have to be counted (default: 150)",
         required=False,
     )
     parser.add_argument(
